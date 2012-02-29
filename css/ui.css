@@ -1268,3 +1268,65 @@
     width: 960px;
   }
 }
+html {
+  background: #3d142f;
+  color: white;
+}
+section {
+  margin: 0 auto;
+  width: 960px;
+  zoom: 1;
+}
+section:before, section:after {
+  clear: both;
+  content: '.';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  font-size: 0;
+  line-height: 0;
+  width: 0;
+  height: 0;
+}
+section article {
+  display: inline;
+  float: left;
+  margin: 0 10px;
+  position: relative;
+  width: 940px;
+}
+.grid {
+  background: white;
+  background-position: 10px 0px;
+  color: #444444;
+}
+.grid p {
+  border: 1px solid #afc7e4;
+  margin: .25em 0px;
+  padding: .25em 0px;
+  text-align: center;
+}
+.container_12 {
+  background-image: -webkit-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-image: -moz-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-image: -ms-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-image: -o-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-image: linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-size: 80px;
+}
+.container_16 {
+  background-image: -webkit-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-image: -moz-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-image: -ms-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-image: -o-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-image: linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-size: 60px;
+}
+.container_24 {
+  background-image: -webkit-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-image: -moz-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-image: -ms-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-image: -o-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-image: linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-size: 40px;
+}

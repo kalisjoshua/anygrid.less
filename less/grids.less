@@ -1,4 +1,24 @@
+/* Grids.less */
 #grid {
+    #container(@width) {
+        margin: 0 auto;
+        width: @width;
+        zoom: 1;
+
+         &:before
+        ,&:after {
+            clear: both;
+            content: '.';
+            display: block;
+            overflow: hidden;
+            visibility: hidden;
+            font-size: 0;
+            line-height: 0;
+            width: 0;
+            height: 0;
+        }
+    }
+
     #grid(@grid, @gutter, @width, @cols, @float: left, @display: inline) {
         .mixin()  when (@grid <  @cols) {}
         .mixin()  when (@grid >= @cols) {
@@ -46,22 +66,7 @@
     }
 
     #system(@grid, @gutter, @width) {
-        margin: 0 auto;
-        width: @width;
-        zoom: 1;
-
-         &:before
-        ,&:after {
-            clear: both;
-            content: '.';
-            display: block;
-            overflow: hidden;
-            visibility: hidden;
-            font-size: 0;
-            line-height: 0;
-            width: 0;
-            height: 0;
-        }
+        #container(@width);
 
         @display: inline;
         @float: left;
