@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Grid System (responsive) from LESS</title>
+    <link rel="stylesheet" href="css/grids.css" />
+    <style>
+        html { background: #3d142f; }
+
+        h1 { color: white; }
+
+        .grid {
+            background: white;
+            background-position: 10px 0px;
+        }
+        .grid.container_12 {
+            background-image: -webkit-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+            background-image:    -moz-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+            background-image:     -ms-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+            background-image:      -o-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+            background-image:         linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+            background-size: 80px;
+        }
+        .grid.container_16 {
+            background-image: -webkit-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+            background-image:    -moz-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+            background-image:     -ms-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+            background-image:      -o-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+            background-image:         linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+            background-size: 60px;
+        }
+        .grid.container_24 {
+            background-image: -webkit-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+            background-image:    -moz-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+            background-image:     -ms-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+            background-image:      -o-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+            background-image:         linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+            background-size: 40px;
+        }
+            .grid div {
+            }
+                .grid div p {
+                    border: 1px solid #afc7e4;
+                    margin: .25em 0px;
+                    padding: .25em 0px;
+                    text-align: center;
+                }
+    </style>
+
+<body>
+    <div class="container_12">
+        <h1>A Responsive and Adjustable Grid System</h1>
+    </div>
+    <div id="output"></div>
+
+    <script>
+    window.onload = function () {
+        function demo (grid, output) {
+            var
+                container = "<div class=\"grid container_#\">{}</div>"
+                    .replace("#", grid)
+
+                ,heading = function (str) {
+
+                    return "<div class=\"grid_#1\">#2</div>"
+                        .replace(/#1/g, grid)
+                        .replace(/#2/g, str);
+                }
+
+                ,result = ""
+                ,temp = "";
+
+            temp = heading("<h2>container_" + grid + "</h2>");
+
+            // two fill the row
+            for (var i = 1; i < grid; i++) {
+                temp += "<div class=\"grid_#1\"><p>#1</p></div><div class=\"grid_#2\"><p>#2</p></div>"
+                    .replace(/#1/g, i)
+                    .replace(/#2/g, grid - i);
+            }
+            result += container
+                .replace("{}", temp);
+
+            temp = heading("<h3>Prefix & Suffix</h3>");
+
+            // one grid sliding across the page
+            for (var i = 0; i < grid; i++) {
+                temp += "<div class=\"grid_1 prefix_#1 suffix_#2\"><p>#1, #2</p></div>"
+                    .replace(/#1/g, grid - 1 - i)
+                    .replace(/#2/g, i);
+            }
+            result += container
+                .replace("{}", temp);
+
+            temp = heading("<h3>Pull & Push</h3>");
+
+            // pull/push each
+            for (var i = 1; i < grid; i++) {
+                temp += "<div class=\"grid_#1 push_#2\"><p>#1</p></div><div class=\"grid_#2 pull_#1\"><p>#2</p></div>"
+                    .replace(/#1/g, i)
+                    .replace(/#2/g, grid - i);
+            }
+            result += container
+                .replace("{}", temp);
+
+            output.innerHTML += result;
+        };
+
+        var output = document.getElementById("output");
+
+        demo(12, output);
+        output.innerHTML += "<br/>";
+        demo(16, output);
+        output.innerHTML += "<br/>";
+        demo(24, output);
+    };
+    </script>
