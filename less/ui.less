@@ -1,24 +1,13 @@
 @import "grids";
 
-#columns(@width, @gutter) {
-    background-image: -webkit-linear-gradient(0, transparent @width, rgba(0, 0, 0, 0.07) @width);
-    background-image:    -moz-linear-gradient(0, transparent @width, rgba(0, 0, 0, 0.07) @width);
-    background-image:     -ms-linear-gradient(0, transparent @width, rgba(0, 0, 0, 0.07) @width);
-    background-image:      -o-linear-gradient(0, transparent @width, rgba(0, 0, 0, 0.07) @width);
-    background-image:         linear-gradient(0, transparent @width, rgba(0, 0, 0, 0.07) @width);
-    background-size: @width + @gutter;
-}
-
 html {
     background: #3d142f;
     color: white;
 }
 
 section {
-    #grid > #container(960px);
 
     article {
-        #grid > #grid(12, 20px, 960px, 12);
     }
 }
 
@@ -33,7 +22,3 @@ section {
         padding: .25em 0px;
         text-align: center;
     }
-
-.container_12 { #columns(60px, 20px); }
-.container_16 { #columns(40px, 20px); }
-.container_24 { #columns(20px, 20px); }

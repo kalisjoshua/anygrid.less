@@ -15,6 +15,14 @@
   width: 0;
   height: 0;
 }
+.container_12.show_columns {
+  background-image: -webkit-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-image: -moz-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-image: -ms-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-image: -o-linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-image: linear-gradient(0, transparent 60px, rgba(0, 0, 0, 0.07) 60px);
+  background-size: 80px;
+}
 .container_12 .grid_1 {
   display: inline;
   float: left;
@@ -288,6 +296,14 @@
   line-height: 0;
   width: 0;
   height: 0;
+}
+.container_16.show_columns {
+  background-image: -webkit-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-image: -moz-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-image: -ms-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-image: -o-linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-image: linear-gradient(0, transparent 40px, rgba(0, 0, 0, 0.07) 40px);
+  background-size: 60px;
 }
 .container_16 .grid_1 {
   display: inline;
@@ -646,6 +662,14 @@
   line-height: 0;
   width: 0;
   height: 0;
+}
+.container_24.show_columns {
+  background-image: -webkit-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-image: -moz-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-image: -ms-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-image: -o-linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-image: linear-gradient(0, transparent 20px, rgba(0, 0, 0, 0.07) 20px);
+  background-size: 40px;
 }
 .container_24 .grid_1 {
   display: inline;
@@ -1159,10 +1183,10 @@
 }
 @media only screen and (min-width: 1px) and (max-width: 959px) {
   body {
-    min-width: 320px;
+    min-width: 300px;
   }
   .container_12, .container_16, .container_24 {
-    width: 320px;
+    width: 300px;
   }
   .container_12 .grid_1,
   .container_16 .grid_1,

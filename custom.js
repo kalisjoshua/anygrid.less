@@ -47,14 +47,19 @@ $.fn.ready(function () {
         result += container
             .replace("{}", temp);
 
-        output.innerHTML += result;
+        output
+            .append(result);
     };
 
-    var output = document.getElementById("output");
+    var output = $("#output");
 
     demo(12, output);
     output.innerHTML += "<br/>";
     demo(16, output);
     output.innerHTML += "<br/>";
     demo(24, output);
+
+    output
+        .find(".container_12, .container_16, .container_24")
+        .addClass("show_columns");
 });
