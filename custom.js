@@ -40,7 +40,7 @@ $.fn.ready(function () {
 
         // pull/push each
         for (var i = 1; i < grid; i++) {
-            temp += "<div class=\"grid_#1 push_#2\"><p>#1</p></div><div class=\"grid_#2 pull_#1\"><p>#2</p></div>"
+            temp += "<div class=\"grid_#1 push_#2\"><p>1st</p></div><div class=\"grid_#2 pull_#1\"><p>2nd</p></div>"
                 .replace(/#1/g, i)
                 .replace(/#2/g, grid - i);
         }
