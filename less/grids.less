@@ -6,6 +6,7 @@
         background-image:     -ms-linear-gradient(0, transparent @width, rgba(0, 0, 0, 0.07) @width);
         background-image:      -o-linear-gradient(0, transparent @width, rgba(0, 0, 0, 0.07) @width);
         background-image:         linear-gradient(0, transparent @width, rgba(0, 0, 0, 0.07) @width);
+        background-position: @gutter / 2 0px;
         background-size: @width + @gutter;
     }
 
@@ -214,17 +215,20 @@
     }
 }
 
+@standard_gutter: 20px;
 @max_width: 960px;
 
-.container_12 { #grid > #system(12, 20px, @max_width); }
-.container_16 { #grid > #system(16, 20px, @max_width); }
-.container_24 { #grid > #system(24, 20px, @max_width); }
+.container_12 { #grid > #system(12, @standard_gutter, @max_width); }
+.container_16 { #grid > #system(16, @standard_gutter, @max_width); }
+.container_24 { #grid > #system(24, @standard_gutter, @max_width); }
 
+// used below to redefine container widths
 #adjust(@width) {
     body { min-width: @width; }
     .container_12, .container_16, .container_24 { width: @width; }
 }
 
+/* Responsive-ness via media queries */
 @media only screen and (min-width: 1px) and (max-width: 959px) {
     #adjust(300px);
 

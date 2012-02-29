@@ -1,7 +1,10 @@
+@import "helpers";
 @import "grids";
 
+@bg: #3d142f;
+
 html {
-    background: #3d142f;
+    .gradient-reflected(darken(@bg, 1%), lighten(@bg, 15%));
     color: white;
 }
 
@@ -13,7 +16,6 @@ section {
 
 .grid {
     background: white;
-    background-position: 10px 0px;
     color: #444444;
 }
     .grid p {
