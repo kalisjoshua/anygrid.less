@@ -1,6 +1,5 @@
 /* Grids.less */
 #grid {
-
     // used in media query sections to redefine the grid widths
     #respond (@width) {
         body { min-width: @width; }
@@ -121,11 +120,6 @@
     }
 }
 
-@media only screen and (min-width: @iPhone_landscape) {
-                           #grid > #respond(@iPhone_landscape);}
-
-@media only screen and (min-width: @iPad_portrait) {
-                           #grid > #respond(@iPad_portrait);}
-
-@media only screen and (min-width: @max_width) {
-                           #grid > #respond(@max_width);}
+@media only screen and (min-width: @iPhone_landscape) {#grid > #respond(@iPhone_landscape);}
+@media only screen and (min-width: @iPad_portrait)    {#grid > #respond(@iPad_portrait);}
+@media only screen and (min-width: @max_width)        {#grid > #respond(@max_width);}
