@@ -33,7 +33,7 @@
         @float: left;
 
         .loop (@index) when (@index > 0) {
-            (~".grid_@{index}")   {
+            (~".grid_@{index}") {
                 .mixin() when (@grid <  @index) {display: none;}
                 .mixin() when (@grid >= @index) {
                     display: inline;
@@ -53,7 +53,7 @@
                 .mixin();
             }
 
-            (~".pull_@{index}")   {
+            (~".pull_@{index}") {
                 .mixin()  when (@grid < @index) {display: none;}
                 .mixin()  when (@grid >= @index) {
                     position: relative;
@@ -62,7 +62,7 @@
                 .mixin();
             }
 
-            (~".push_@{index}")   {
+            (~".push_@{index}") {
                 .mixin()  when (@grid <  @index) {display: none;}
                 .mixin()  when (@grid >= @index) {
                     position: relative;
