@@ -1,6 +1,13 @@
 /* Grids.less */
 #grid {
-    #system(@grid, @gutter, @width) {
+
+    // used in media query sections to redefine the grid widths
+    #respond (@width) {
+        body { min-width: @width; }
+        [class*="container"] { width: @width !important; }
+    }
+
+    #system (@grid, @gutter, @width) {
         margin: 0 auto;
         width: @width;
         zoom: 1;
@@ -18,6 +25,7 @@
             height: 0;
         }
 
+        // sets up a tiled background to show where the grid and gutters are within a container
         &.show_columns {
             @_width: @width / @grid - @gutter;
             background-image: -webkit-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
@@ -29,59 +37,50 @@
             background-size: @_width + @gutter;
         }
 
-        @display: inline;
-        @float: left;
+        #grid (@grid, @gutter, @width, @index) when (@grid <  @index) {display: none;}
+        #grid (@grid, @gutter, @width, @index) when (@grid >= @index) {
+            display: inline;
+            float: left;
+            margin: 0 @gutter / 2;
+            position: relative;
+            width: (@width / @grid * @index) - @gutter;
+        }
 
+        #pref (@grid, @gutter, @width, @index) when (@grid <  @index) {display: none;}
+        #pref (@grid, @gutter, @width, @index) when (@grid >= @index) {
+            padding-left: (@width / @grid * @index);
+        }
+
+        #pull (@grid, @gutter, @width, @index) when (@grid <  @index) {display: none;}
+        #pull (@grid, @gutter, @width, @index) when (@grid >= @index) {
+            position: relative;
+            left: -(@width / @grid * @index);
+        }
+
+        #push (@grid, @gutter, @width, @index) when (@grid <  @index) {display: none;}
+        #push (@grid, @gutter, @width, @index) when (@grid >= @index) {
+            position: relative;
+            left: (@width / @grid * @index);
+        }
+
+        #suff (@grid, @gutter, @width, @index) when (@grid <  @index) {display: none;}
+        #suff (@grid, @gutter, @width, @index) when (@grid >= @index) {
+            padding-right: (@width / @grid * @index);
+        }
+
+        // DANGER! recursion!
+        // build all of the selectors and rules for [grid, prefix, pull, push, suffix]
+        .loop (0) {}
         .loop (@index) when (@index > 0) {
-            (~".grid_@{index}") {
-                .mixin() when (@grid <  @index) {display: none;}
-                .mixin() when (@grid >= @index) {
-                    display: inline;
-                    float: left;
-                    margin: 0 @gutter / 2;
-                    position: relative;
-                    width: (@width / @grid * @index) - @gutter;
-                }
-                .mixin();
-            }
-
-            (~".prefix_@{index}") {
-                .mixin() when (@grid <  @index) {display: none;}
-                .mixin() when (@grid >= @index) {
-                    padding-left: (@width / @grid * @index);
-                }
-                .mixin();
-            }
-
-            (~".pull_@{index}") {
-                .mixin()  when (@grid < @index) {display: none;}
-                .mixin()  when (@grid >= @index) {
-                    position: relative;
-                    left: -(@width / @grid * @index);
-                }
-                .mixin();
-            }
-
-            (~".push_@{index}") {
-                .mixin()  when (@grid <  @index) {display: none;}
-                .mixin()  when (@grid >= @index) {
-                    position: relative;
-                    left: (@width / @grid * @index);
-                }
-                .mixin();
-            }
-
-            (~".suffix_@{index}") {
-                .mixin()  when (@grid <  @index) {display: none;}
-                .mixin()  when (@grid >= @index) {
-                    padding-right: (@width / @grid * @index);
-                }
-                .mixin();
-            }
+            // string expansion to write all of the selectors
+            (~".grid_@{index}")   { #grid(@grid, @gutter, @width, @index); }
+            (~".prefix_@{index}") { #pref(@grid, @gutter, @width, @index); }
+            (~".pull_@{index}")   { #pull(@grid, @gutter, @width, @index); }
+            (~".push_@{index}")   { #push(@grid, @gutter, @width, @index); }
+            (~".suffix_@{index}") { #suff(@grid, @gutter, @width, @index); }
 
             .loop(@index - 1);
         }
-        .loop (0) {}
 
         .loop(@grid);
 
@@ -101,17 +100,11 @@
 .container_16 { #grid > #system(16, @standard_gutter, @max_width); }
 .container_24 { #grid > #system(24, @standard_gutter, @max_width); }
 
-// used below to redefine container widths
-#adjust(@width) {
-    body { min-width: @width; }
-    [class*="container"] { width: @width !important; }
-}
-
 /* Responsive-ness via media queries */
 @media only screen and (min-width: 1px) and (max-width: @max_less) {
-    #adjust(@iPhone_portrait);
+    #grid > #respond(@iPhone_portrait);
 
-    // container(s) here need to match above for specificity
+    // any [grid, prefix, pull, push, suffix] inside of any container force to block layout
     [class*="container"] {
         [class*="grid"]
         ,[class*="prefix"]
@@ -129,10 +122,10 @@
 }
 
 @media only screen and (min-width: @iPhone_landscape) {
-                           #adjust(@iPhone_landscape);}
+                           #grid > #respond(@iPhone_landscape);}
 
 @media only screen and (min-width: @iPad_portrait) {
-                           #adjust(@iPad_portrait);}
+                           #grid > #respond(@iPad_portrait);}
 
 @media only screen and (min-width: @max_width) {
-                           #adjust(@max_width);}
+                           #grid > #respond(@max_width);}
