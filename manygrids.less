@@ -7,35 +7,6 @@
     }
 
     #system (@grid, @gutter, @width) {
-        margin: 0 auto;
-        width: @width;
-        zoom: 1;
-
-         &:before
-        ,&:after {
-            clear: both;
-            content: '.';
-            display: block;
-            overflow: hidden;
-            visibility: hidden;
-            font-size: 0;
-            line-height: 0;
-            width: 0;
-            height: 0;
-        }
-
-        // sets up a tiled background to show where the grid and gutters are within a container
-        &.show_columns {
-            @_width: @width / @grid - @gutter;
-            background-image: -webkit-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-            background-image:    -moz-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-            background-image:     -ms-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-            background-image:      -o-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-            background-image:         linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-            background-position: @gutter / 2 0px;
-            background-size: @_width + @gutter;
-        }
-
         #grid (@grid, @gutter, @width, @index) when (@grid <  @index) {display: none;}
         #grid (@grid, @gutter, @width, @index) when (@grid >= @index) {
             display: inline;
@@ -66,22 +37,53 @@
         #suff (@grid, @gutter, @width, @index) when (@grid >= @index) {
             padding-right: (@width / @grid * @index);
         }
+        
+        (~".container_@{grid}") {
+            margin: 0 auto;
+            width: @width;
+            zoom: 1;
 
-        // DANGER! recursion!
-        // build all of the selectors and rules for [grid, prefix, pull, push, suffix]
-        .loop (0) {}
-        .loop (@index) when (@index > 0) {
-            // string expansion to write all of the selectors
-            (~".grid_@{index}")   { #grid(@grid, @gutter, @width, @index); }
-            (~".prefix_@{index}") { #pref(@grid, @gutter, @width, @index); }
-            (~".pull_@{index}")   { #pull(@grid, @gutter, @width, @index); }
-            (~".push_@{index}")   { #push(@grid, @gutter, @width, @index); }
-            (~".suffix_@{index}") { #suff(@grid, @gutter, @width, @index); }
+             &:before
+            ,&:after {
+                clear: both;
+                content: '.';
+                display: block;
+                overflow: hidden;
+                visibility: hidden;
+                font-size: 0;
+                line-height: 0;
+                width: 0;
+                height: 0;
+            }
 
-            .loop(@index - 1);
+            // sets up a tiled background to show where the grid and gutters are within a container
+            &.show_columns {
+                @_width: @width / @grid - @gutter;
+                background-image: -webkit-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-image:    -moz-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-image:     -ms-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-image:      -o-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-image:         linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-position: @gutter / 2 0px;
+                background-size: @_width + @gutter;
+            }
+
+            // DANGER! recursion!
+            // build all of the selectors and rules for [grid, prefix, pull, push, suffix]
+            .loop (0) {}
+            .loop (@index) when (@index > 0) {
+                // string expansion to write all of the selectors
+                (~".grid_@{index}")   { #grid(@grid, @gutter, @width, @index); }
+                (~".prefix_@{index}") { #pref(@grid, @gutter, @width, @index); }
+                (~".pull_@{index}")   { #pull(@grid, @gutter, @width, @index); }
+                (~".push_@{index}")   { #push(@grid, @gutter, @width, @index); }
+                (~".suffix_@{index}") { #suff(@grid, @gutter, @width, @index); }
+
+                .loop(@index - 1);
+            }
+
+            .loop(@grid);
         }
-
-        .loop(@grid);
 
         .alpha { margin-left:  0; }
         .omega { margin-right: 0; }
@@ -95,9 +97,9 @@
 @iPhone_landscape   : 480px;
 @iPad_portrait      : 740px;
 
-.container_12 { #grid > #system(12, @standard_gutter, @max_width); }
-.container_16 { #grid > #system(16, @standard_gutter, @max_width); }
-.container_24 { #grid > #system(24, @standard_gutter, @max_width); }
+#grid > #system(12, @standard_gutter, @max_width);
+#grid > #system(16, @standard_gutter, @max_width);
+#grid > #system(24, @standard_gutter, @max_width);
 
 /* Responsive-ness via media queries */
 @media only screen and (min-width: 1px) and (max-width: @max_less) {
