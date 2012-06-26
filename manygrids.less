@@ -17,6 +17,37 @@
     }
 
     #system (@grid, @width, @gutter :20px) {
+        #container () {
+            margin: 0 auto;
+            width: @width;
+            zoom: 1;
+
+             &:before
+            ,&:after {
+                clear: both;
+                content: '.';
+                display: block;
+                overflow: hidden;
+                visibility: hidden;
+                font-size: 0;
+                line-height: 0;
+                width: 0;
+                height: 0;
+            }
+
+            // sets up a tiled background to show where the grid and gutters are within a container
+            &.show_columns {
+                @_width: @width / @grid - @gutter;
+                background-image: -webkit-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-image:    -moz-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-image:     -ms-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-image:      -o-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-image:         linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+                background-position: @gutter / 2 0px;
+                background-size: @_width + @gutter;
+            }
+        }
+
         #grid (@grid, @index) when (@grid <  @index) {display: none;}
         #grid (@grid, @index) when (@grid >= @index) {
             display: inline;
@@ -49,34 +80,7 @@
         }
 
         (~".container_@{grid}") {
-            margin: 0 auto;
-            width: @width;
-            zoom: 1;
-
-             &:before
-            ,&:after {
-                clear: both;
-                content: '.';
-                display: block;
-                overflow: hidden;
-                visibility: hidden;
-                font-size: 0;
-                line-height: 0;
-                width: 0;
-                height: 0;
-            }
-
-            // sets up a tiled background to show where the grid and gutters are within a container
-            &.show_columns {
-                @_width: @width / @grid - @gutter;
-                background-image: -webkit-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-                background-image:    -moz-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-                background-image:     -ms-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-                background-image:      -o-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-                background-image:         linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
-                background-position: @gutter / 2 0px;
-                background-size: @_width + @gutter;
-            }
+            #container();
 
             // DANGER! recursion!
             // build all of the selectors and rules for [grid, prefix, pull, push, suffix]
