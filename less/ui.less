@@ -1,5 +1,16 @@
 @import "helpers";
-@import "../manygrids";
+@import "anygrid";
+
+@max_width          : 960px;
+@max_less           : @max_width - 1;
+@iPhone_portrait    : 300px;
+@iPhone_landscape   : 480px;
+@iPad_portrait      : 740px;
+
+.container_12 { #anygrid > #system(12, @max_width); }
+.container_16 { #anygrid > #system(16, @max_width); }
+.container_24 { #anygrid > #system(24, @max_width); }
+#anygrid > #responsive();
 
 @bg: #3d142f;
 
@@ -11,10 +22,11 @@ html {
 .grid {
     background: white;
     color: #444444;
-}
-    .grid p {
+
+    p {
         border: 1px solid #afc7e4;
         margin: .25em 0px;
         padding: .25em 0px;
         text-align: center;
     }
+}

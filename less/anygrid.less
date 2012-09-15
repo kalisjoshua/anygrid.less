@@ -1,0 +1,117 @@
+/* anygrid.less */
+#anygrid {
+
+    .grid (@width, @gutter, @grid, @index) when (@grid <  @index) {display: none;}
+    .grid (@width, @gutter, @grid, @index) when (@grid >= @index) {
+        display: inline;
+        float: left;
+        margin: 0 @gutter / 2;
+        position: relative;
+        width: (@width / @grid * @index) - @gutter;
+    }
+
+    .prefix (@width, @gutter, @grid, @index) when (@grid <  @index) {display: none;}
+    .prefix (@width, @gutter, @grid, @index) when (@grid >= @index) {
+        padding-left: (@width / @grid * @index);
+    }
+
+    .pull (@width, @gutter, @grid, @index) when (@grid <  @index) {display: none;}
+    .pull (@width, @gutter, @grid, @index) when (@grid >= @index) {
+        position: relative;
+        left: -(@width / @grid * @index);
+    }
+
+    .push (@width, @gutter, @grid, @index) when (@grid <  @index) {display: none;}
+    .push (@width, @gutter, @grid, @index) when (@grid >= @index) {
+        position: relative;
+        left: (@width / @grid * @index);
+    }
+
+    .suffix (@width, @gutter, @grid, @index) when (@grid <  @index) {display: none;}
+    .suffix (@width, @gutter, @grid, @index) when (@grid >= @index) {
+        padding-right: (@width / @grid * @index);
+    }
+
+    #system (@grid, @width, @gutter :20px) {
+        margin: 0 auto;
+        width: @width;
+        zoom: 1;
+
+         &:before
+        ,&:after {
+            clear: both;
+            content: '.';
+            display: block;
+            overflow: hidden;
+            visibility: hidden;
+            font-size: 0;
+            line-height: 0;
+            width: 0;
+            height: 0;
+        }
+
+        // sets up a tiled background to show where the grid and gutters are within a container
+        &.show_columns {
+            @_width: @width / @grid - @gutter;
+            background-image: -webkit-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+            background-image:    -moz-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+            background-image:     -ms-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+            background-image:      -o-linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+            background-image:         linear-gradient(0, transparent @_width, rgba(0, 0, 0, 0.07) @_width);
+            background-position: @gutter / 2 0px;
+            background-size: @_width + @gutter;
+        }
+
+        // DANGER! recursion!
+        // build all of the selectors and rules for [grid, prefix, pull, push, suffix]
+        .loop (0) {}
+        .loop (@index) when (@index > 0) {
+            // string expansion to write all of the selectors
+            (~".grid_@{index}")   { .grid(  @width, @gutter, @grid, @index); }
+            (~".prefix_@{index}") { .prefix(@width, @gutter, @grid, @index); }
+            (~".pull_@{index}")   { .pull(  @width, @gutter, @grid, @index); }
+            (~".push_@{index}")   { .push(  @width, @gutter, @grid, @index); }
+            (~".suffix_@{index}") { .suffix(@width, @gutter, @grid, @index); }
+
+            .loop(@index - 1);
+        }
+
+        .loop(@grid);
+
+        .alpha { margin-left:  0; }
+        .omega { margin-right: 0; }
+    }
+
+    /* Responsive-ness via media queries */
+    #responsive () {
+        // used to redefine grid widths
+        #respond (@width) {
+            body { min-width: @width; }
+            [class*=container] { width: @width !important; }
+        }
+
+        @media only screen and (min-width: 1px) and (max-width: @max_less) {
+            #respond(@iPhone_portrait);
+
+            // any [grid, prefix, pull, push, suffix] inside of any container force to block layout
+            [class*=container] {
+                 [class*=grid]
+                ,[class*=prefix]
+                ,[class*=pull]
+                ,[class*=push]
+                ,[class*=suffix] {
+                    display: block;
+                    float: none;
+                    left: 0px;
+                    margin: 0px;
+                    padding: 0px;
+                    width: 100%;
+                }
+            }
+        }
+
+        @media only screen and (min-width: @iPhone_landscape) {#respond(@iPhone_landscape);}
+        @media only screen and (min-width: @iPad_portrait)    {#respond(@iPad_portrait);}
+        @media only screen and (min-width: @max_width)        {#respond(@max_width);}
+    }
+}
